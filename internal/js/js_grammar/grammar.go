@@ -3,7 +3,10 @@ package js_grammar
 
 import (
 	"bytes"
+	"fmt"
 	"os"
+	"path/filepath"
+	"regexp"
 
 	"github.com/alecthomas/participle/v2"
 	"github.com/alecthomas/participle/v2/lexer"
@@ -11,6 +14,8 @@ import (
 
 	"github.com/gabotechs/dep-tree/internal/utils"
 )
+
+var vueScriptSetupRegex = regexp.MustCompile(`(?s)<script setup.+?>\n(.+)</script>`)
 
 type Statement struct {
 	// imports.
@@ -54,6 +59,17 @@ func Parse(filePath string) (*language.FileInfo, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	ext := filepath.Ext(filePath)
+	if ext == ".vue" {
+		vueScriptMatches := vueScriptSetupRegex.FindSubmatch(content)
+		if len(vueScriptMatches) != 2 {
+			return nil, fmt.Errorf("vue file does not use script setup syntax")
+		}
+
+		content = vueScriptMatches[1]
+	}
+
 	statements, err := parser.ParseBytes(filePath, content)
 	if err != nil {
 		return nil, err

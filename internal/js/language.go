@@ -9,7 +9,7 @@ import (
 )
 
 var Extensions = []string{
-	"js", "ts", "tsx", "jsx", "d.ts", "mjs", "cjs",
+	"js", "ts", "tsx", "jsx", "d.ts", "mjs", "cjs", "vue",
 }
 
 type Language struct {
