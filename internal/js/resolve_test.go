@@ -95,7 +95,7 @@ func TestParser_ResolvePath(t *testing.T) {
 			_lang, err := MakeJsLanguage(nil)
 			a.NoError(err)
 			lang := _lang.(*Language)
-			resolved, err := lang.ResolvePath(tt.Unresolved, tt.Cwd)
+			resolved, err := lang.ResolvePath(tt.Unresolved, tt.Cwd, "tsconfig.json")
 			if tt.ExpectedError != "" {
 				a.ErrorContains(err, tt.ExpectedError)
 			} else {

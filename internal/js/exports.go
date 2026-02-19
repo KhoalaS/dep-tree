@@ -53,7 +53,7 @@ func (l *Language) ParseExports(file *language.FileInfo) (*language.ExportsResul
 				})
 			}
 		case stmt.ProxyExport != nil:
-			exportFrom, err := l.ResolvePath(stmt.ProxyExport.From, filepath.Dir(file.AbsPath))
+			exportFrom, err := l.ResolvePath(stmt.ProxyExport.From, filepath.Dir(file.AbsPath), l.Cfg.TsConfigFileName)
 			if err != nil {
 				errors = append(errors, err)
 				continue

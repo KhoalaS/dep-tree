@@ -12,7 +12,7 @@ import (
 // ResolvePath resolves an unresolved import based on the dir where the import was executed.
 //
 //nolint:gocyclo
-func (l *Language) ResolvePath(unresolved string, dir string) (string, error) {
+func (l *Language) ResolvePath(unresolved string, dir string, tsConfigfile string) (string, error) {
 	absPath := ""
 	var err error
 
@@ -50,7 +50,7 @@ func (l *Language) ResolvePath(unresolved string, dir string) (string, error) {
 	if packageJsonPath == "" {
 		return "", nil
 	}
-	tsConfigPath := filepath.Join(filepath.Dir(packageJsonPath), tsConfigFile)
+	tsConfigPath := filepath.Join(filepath.Dir(packageJsonPath), tsConfigfile)
 
 	// 3.2 if there's no tsconfig file, then nothing else can be done.
 	if !utils.FileExists(tsConfigPath) {

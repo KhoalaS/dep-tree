@@ -47,7 +47,7 @@ func (l *Language) ParseImports(file *language.FileInfo) (*language.ImportsResul
 			continue
 		}
 		var err error
-		entry.AbsPath, err = l.ResolvePath(importPath, filepath.Dir(file.AbsPath))
+		entry.AbsPath, err = l.ResolvePath(importPath, filepath.Dir(file.AbsPath), l.Cfg.TsConfigFileName)
 		if err != nil {
 			errors = append(errors, err)
 		} else if entry.AbsPath != "" {
