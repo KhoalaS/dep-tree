@@ -15,7 +15,7 @@ import (
 	"github.com/gabotechs/dep-tree/internal/utils"
 )
 
-var vueScriptSetupRegex = regexp.MustCompile(`(?s)<script setup.+?>(.+)</script>`)
+var vueScriptSetupRegex = regexp.MustCompile(`(?s)<script[^>]*\bsetup\b[^>]*>(.+)</script>`)
 
 type Statement struct {
 	// imports.
